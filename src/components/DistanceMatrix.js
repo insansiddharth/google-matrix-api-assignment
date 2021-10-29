@@ -11,7 +11,6 @@ export const DistanceMatrix = ({formData}) => {
         let cordinates = {};
         await fetch(geoCodeURL).then((res) => res.json()).then((res) => {
             cordinates = res.results[0].geometry.location;
-            // console.log(cordinates);
         })
         return cordinates;
     }
@@ -23,27 +22,22 @@ export const DistanceMatrix = ({formData}) => {
     useEffect(() => {
         const getDistanceMatrix = async () => {
             console.log("props",formData)
-            let origin1 = await getLatLong(formData.origin1); //{ lat: 19.0759837, lng: 72.8776559 } //await getLatLong("mumbai");
-            let origin2 =  await getLatLong(formData.origin2);//{ lat: 12.9715987, lng: 77.5945627 } //            await getLatLong("bangalore");
-            let dest1 = await getLatLong(formData.dest1);   //{ lat: 22.572646, lng: 88.36389500000001 } //await getLatLong("kolkata");
-            let dest2 =  await getLatLong(formData.dest2); //{ lat: 13.0826802, lng: 80.2707184 } //await getLatLong("chennai");
+            let origin1 = await getLatLong(formData.origin1); //{ lat: 19.0759837, lng: 72.8776559 } 
+            let origin2 =  await getLatLong(formData.origin2);//{ lat: 12.9715987, lng: 77.5945627 } 
+            let dest1 = await getLatLong(formData.dest1);  
+            let dest2 =  await getLatLong(formData.dest2); 
 
             const url = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${dest1.lat},${dest1.lng}|${dest2.lat},${dest2.lng}&origins=${origin1.lat},${origin1.lng}|${origin2.lat},${origin2.lng}&key=${apiKey}`
 
-            console.log("url", url)
-            const result = await fetch(url) //.then((res)=>res.json()).then((res)=>{console.log(res); setResponse(res.rows);});
+       
+            const result = await fetch(url) 
             const resp = await result.json()
-            // setResponse(resp.rows);
+
             const tempArray = [...(resp.rows[0].elements), ...(resp.rows[1].elements)]
-            // resp1 = tempArray;
+          
             setResponse(tempArray);
-
-
-            console.log("response",tempArray);
         }
         getDistanceMatrix();
-
-        // console.log(tempArray);
 
     }, [])
 
