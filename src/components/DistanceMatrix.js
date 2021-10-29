@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 export const DistanceMatrix = ({formData}) => {
 
-    const apiKey = "AIzaSyDLjJYKXa958KNtFuxqewcOEipF83DxxII"
+    const apiKey = "API-Key"
     const [response, setResponse] = useState([])
 
     const getLatLong = async (location) => {
